@@ -13,5 +13,11 @@ def call(request):
 # 在templates下多创建一个 与app重名的目录 将html放进去。
 def ren(request):
     # pk = 相当于primary key  select条件
-    article = models.Article.objects.get(pk=2)
-    return render(request, 'blog/index.html', {'acticle': article})
+    articles = models.Article.objects.all()
+    return render(request, 'blog/index1.html', {'articles': articles})
+
+
+#博客详情
+def detail(request, article_id):
+    article = models.Article.objects.get(pk=article_id)
+    return render(request, 'blog/detail.html', {'article': article})
