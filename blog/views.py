@@ -24,14 +24,25 @@ def detail(request, article_id):
 
 
 # 编辑
-def edit(request):
-    return render(request, 'blog/edit.html')
+def edit(request, article_id):
+    if str(article_id) == "0":
+        return render(request, 'blog/edit.html')
+    article = models.Article.objects.get(pk=article_id)
+    return render(request, 'blog/edit.html', {'article': article})
 
 
+# 提交
 def edit_action(request):
-    title = request.POST.get('title','默认标题')
-    content = request.POST.get('content','默认内容')
-    models.Article.objects.create(title=title,content=content)
+    title = request.POST.get('title', '默认标题')
+    content = request.POST.get('content', '默认内容')
+    article_id = request.POST.get('article_id_hidden', "0")
+    if article_id == "0":
+        models.Article.objects.create(title=title, content=content)
+        articles = models.Article.objects.all()
+        return render(request, 'blog/index1.html', {'articles': articles})
 
-    articles = models.Article.objects.all()
-    return render(request,'blog/index1.html',{'articles':articles})
+    article = models.Article.objects.get(pk=article_id)
+    article.title = title
+    article.content = content
+    article.save()
+    return render(request, 'blog/detail.html', {'article': article})

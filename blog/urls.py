@@ -12,6 +12,6 @@ urlpatterns = [
     # url(r'^detail/(?P<article_id>[0-9]+)$')
     # python3版本  注意后面加反斜杠
     path('detail/<int:article_id>/', views.detail, name='article_detail'),
-    path('edit/', views.edit, name='article_edit'),
+    path('edit/<int:article_id>/', views.edit, name='article_edit'),
     path('edit/action/', views.edit_action, name='article_edit_action')
 ]
