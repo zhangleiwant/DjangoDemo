@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>博客编辑界面</title>
+</head>
+{#CSRF验证失败. 请求被中断.  在布局中加上 {% csrf_token %}#}
+<body>
+
+<form action="{% url 'blog:article_edit_action' %}" method="post">
+    {% csrf_token %}
+    <label>编辑界面</label>
+    <br/>
+    <label>标题
+        <input type="text" name="title">
+    </label>
+    <br/>
+    <label>内容
+        <input type="text" name="content">
+    </label>
+    <br/>
+    <input type="submit" value="提交">
+</form>
+
+</body>
+</html>

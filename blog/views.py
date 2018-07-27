@@ -17,7 +17,21 @@ def ren(request):
     return render(request, 'blog/index1.html', {'articles': articles})
 
 
-#博客详情
+# 博客详情
 def detail(request, article_id):
     article = models.Article.objects.get(pk=article_id)
     return render(request, 'blog/detail.html', {'article': article})
+
+
+# 编辑
+def edit(request):
+    return render(request, 'blog/edit.html')
+
+
+def edit_action(request):
+    title = request.POST.get('title','默认标题')
+    content = request.POST.get('content','默认内容')
+    models.Article.objects.create(title=title,content=content)
+
+    articles = models.Article.objects.all()
+    return render(request,'blog/index1.html',{'articles':articles})
