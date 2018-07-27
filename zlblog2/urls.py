@@ -20,7 +20,7 @@ from blog.views import call
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('call/',call)
-    path('blog/', include('blog.urls')),
+    path('blog/', include('blog.urls',namespace='blog')),
     # 填写url一定要在后面加上/
-    path('blog_tools/', include('blog_tools.urls'))
+    path('blog_tools/', include('blog_tools.urls',namespace='blog_tools'))
 ]

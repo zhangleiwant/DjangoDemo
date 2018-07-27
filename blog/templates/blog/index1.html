@@ -5,13 +5,15 @@
     <title>博客首页</title>
 </head>
 {#for 循环写法#}
+{#第一种方式是在 href里面直接拼url#}
+{#第二种方式在根目录下定义命名空间namespace ，在app里面url里面命名name  在界面里面定义url 'namespace:name' params  从大到小冒号隔开 后面带参数#}
 <body>
   {% for article in articles %}
-     <a href="">{{ article }}</a>
+     <a href="{% url 'blog:article_detail' article.id %}">{{ article }}</a>
      <br/>
   {% endfor %}
 <br/>
 <br/>
-<a href="">编辑</a>
+<a href="">写新博客</a>
 </body>
 </html>
