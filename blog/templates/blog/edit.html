@@ -6,33 +6,26 @@
 </head>
 {#CSRF验证失败. 请求被中断.  在布局中加上 {% csrf_token %}#}
 {#使用隐藏的属性进行更改内容#}
+{#加入过滤器技巧 避免多余代码 进行判断字段 如果字段没有的话 默认为空#}
+{#shell调试技巧#}
+{#admin技巧，数据类的Admin ,admin过滤器#}
 <body>
 
 <form action="{% url 'blog:article_edit_action' %}" method="post">
     {% csrf_token %}
     <label>编辑界面</label>
     <br/>
-    {% if article %}
-        <input type="hidden" name="article_id_hidden" value="{{ article.id}}">
-        <label>标题
-            <input type="text" name="title" value="{{ article.title}}">
-        </label>
-        <br/>
-        <label>内容
-            <input type="text" name="content" value="{{article.content}}">
-        </label>
-        <br/>
-    {% else %}
-        <input type="hidden" name="article_id_hidden" value="0">
-         <label>标题
-            <input type="text" name="title">
-        </label>
-        <br/>
-        <label>内容
-            <input type="text" name="content">
-        </label>
-        <br/>
-    {% endif %}
+
+    <input type="hidden" name="article_id_hidden" value="{{ article.id | default:'0' }}">
+    <label>标题
+        <input type="text" name="title" value="{{ article.title }}">
+    </label>
+    <br/>
+    <label>内容
+        <input type="text" name="content" value="{{ article.content }}">
+    </label>
+    <br/>
+
 
     <input type="submit" value="提交">
 </form>
